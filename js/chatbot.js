@@ -620,6 +620,7 @@ export class AIChatbot {
         • **Availability**: Available for commissions worldwide`,
         [
           { label: "💬 WhatsApp (+91 96969 15516)", action: "open_whatsapp" },
+          { label: "📸 Instagram (@aakaxh_11)", action: "open_instagram" },
           { label: "📞 Call Direct", action: "call_phone" },
           { label: "📝 Send Inquiry Form", action: "scroll_section", param: "contact" }
         ]
@@ -674,6 +675,10 @@ export class AIChatbot {
         if (param) {
           this.scrollToSection(param);
         }
+        break;
+
+      case 'open_instagram':
+        window.open('https://www.instagram.com/aakaxh_11/', '_blank', 'noopener,noreferrer');
         break;
 
       case 'open_whatsapp':

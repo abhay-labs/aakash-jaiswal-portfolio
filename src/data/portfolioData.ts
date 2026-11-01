@@ -39,7 +39,7 @@ export const PROFILE_INFO = {
     phone: "+91 96969 15516",
     location: "Available for Commissions Worldwide · Based in India",
     whatsapp: "+919696915516",
-    instagram: "https://instagram.com/[ADD_INSTAGRAM_HANDLE]",
+    instagram: "https://www.instagram.com/aakaxh_11/",
     youtube: "https://youtube.com/@[ADD_YOUTUBE_CHANNEL]",
     vimeo: "https://vimeo.com/[ADD_VIMEO_CHANNEL]",
     linkedin: "https://linkedin.com/in/[ADD_LINKEDIN_PROFILE]"
