@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+  <title>Aakash Jaiswal | Photographer, Visual Storyteller & Video Editor</title>
+  <meta name="description" content="Official portfolio of Aakash Jaiswal — Freelance Professional Photographer & Video Editor with 5–6 years of experience in Weddings, Portraits, Events, Products, Travel stories, and cinematic Premiere Pro editing." />
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📷</text></svg>" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            amber: {
+              400: '#e5c18a',
+              300: '#f0d2a4',
+              200: '#f7e3bf',
+              100: '#fbf3e5',
+            },
+            zinc: {
+              850: '#1b1b22',
+              900: '#111116',
+              950: '#070709',
+            }
+          },
+          fontFamily: {
+            display: ['Cinzel', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            mono: ['Space Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/custom.css" />
+</head>
+
+<body class="bg-[#050507] text-zinc-100 antialiased selection:bg-amber-400 selection:text-black">
+
+  <!-- 01. CINEMATIC OPENING LOADER (Awwwards-level interactive intro) -->
+  <div id="cinematic-loader">
+    <div class="relative flex flex-col items-center text-center p-6">
+      
+      <!-- Animated Camera Aperture Diaphragm Blades -->
+      <div class="w-20 h-20 sm:w-24 sm:h-24 mb-6 relative flex items-center justify-center">
+        <svg class="w-full h-full text-amber-400 animate-aperture-spin" viewBox="0 0 100 100" fill="none" stroke="currentColor">
+          <circle cx="50" cy="50" r="46" stroke-width="1.5" stroke-opacity="0.3" />
+          <path d="M50 10 L85 70" stroke-width="1.5" stroke-opacity="0.7"/>
+          <path d="M85 30 L35 88" stroke-width="1.5" stroke-opacity="0.7"/>
+          <path d="M80 75 L15 50" stroke-width="1.5" stroke-opacity="0.7"/>
+          <path d="M35 85 L15 20" stroke-width="1.5" stroke-opacity="0.7"/>
+          <path d="M15 40 L65 12" stroke-width="1.5" stroke-opacity="0.7"/>
+          <circle cx="50" cy="50" r="16" fill="#e5c18a" fill-opacity="0.15" stroke="#e5c18a" stroke-width="1"/>
+        </svg>
+      </div>
+
+      <!-- Wordmark -->
+      <h2 class="font-display text-2xl sm:text-4xl font-bold tracking-[0.25em] text-white uppercase mb-2">
+        AAKASH JAISWAL
+      </h2>
+      <p class="text-[10px] sm:text-xs uppercase tracking-widest text-zinc-400 font-mono mb-8">
+        Photographer · Visual Storyteller · Video Editor
+      </p>
+
+      <!-- Percentage Counter & Progress -->
+      <div class="flex items-center gap-3 text-sm font-mono text-amber-300">
+        <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+        <span id="loader-counter">0%</span>
+      </div>
+
+      <!-- Skip Button -->
+      <button 
+        id="loader-skip-btn" 
+        onclick="const l=document.getElementById('cinematic-loader');if(l){l.classList.add('loader-hidden');document.body.style.overflow='';}"
+        class="mt-8 px-4 py-1.5 rounded-full border border-zinc-800 text-[11px] font-mono text-zinc-500 hover:text-amber-300 hover:border-amber-400/40 transition-colors cursor-pointer">
+        Skip Intro ↗
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Bulletproof loader safety timer (guarantees loader never gets stuck)
+    setTimeout(function() {
+      var l = document.getElementById('cinematic-loader');
+      if (l && !l.classList.contains('loader-hidden')) {
+        l.classList.add('loader-hidden');
+        document.body.style.overflow = '';
+      }
+    }, 2500);
+  </script>
+
+  <!-- Film Grain Overlay -->
+  <canvas id="film-grain-canvas"></canvas>
+
+  <!-- Desktop Custom Magnetic Cursor -->
+  <div class="custom-cursor-dot hidden md:block"></div>
+  <div class="custom-cursor-ring hidden md:block"></div>
+
+  <!-- CAMERA VIEWFINDER HUD OVERLAY (Press 'V' to toggle) -->
+  <div id="camera-viewfinder-overlay" class="hidden fixed inset-0 pointer-events-none z-50">
+    <div class="viewfinder-grid"></div>
+    <div class="viewfinder-crosshair"></div>
+    
+    <!-- Top HUD Bar -->
+    <div class="absolute top-6 left-6 right-6 flex items-center justify-between text-xs font-mono text-amber-300/80">
+      <div class="flex items-center gap-3">
+        <span class="flex items-center gap-1.5 px-2 py-0.5 rounded bg-red-950/80 border border-red-500/40 text-red-400">
+          <span class="w-2 h-2 rounded-full bg-red-500 rec-dot"></span> REC
+        </span>
+        <span>4K 60FPS</span>
+        <span>RAW 14-BIT</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <span>AF-C [WIDE]</span>
+        <span>OPTICS: PRIME</span>
+        <span class="px-2 py-0.5 rounded border border-amber-400/30">BATTERY: 98%</span>
+      </div>
+    </div>
+
+    <!-- Bottom HUD Bar -->
+    <div class="absolute bottom-6 left-6 right-6 flex items-center justify-between text-xs font-mono text-amber-300/80">
+      <div class="flex items-center gap-4">
+        <span>F1.8</span>
+        <span>1/500s</span>
+        <span>ISO 100</span>
+        <span>MM: ±0.0</span>
+      </div>
+      <div class="text-[11px] text-zinc-400 font-mono">
+        VIEWFINDER ACTIVE · PRESS [V] TO TOGGLE
+      </div>
+    </div>
+
+    <!-- Framing Brackets -->
+    <div class="absolute top-12 left-12 w-8 h-8 border-t-2 border-l-2 border-amber-400/50"></div>
+    <div class="absolute top-12 right-12 w-8 h-8 border-t-2 border-r-2 border-amber-400/50"></div>
+    <div class="absolute bottom-12 left-12 w-8 h-8 border-b-2 border-l-2 border-amber-400/50"></div>
+    <div class="absolute bottom-12 right-12 w-8 h-8 border-b-2 border-r-2 border-amber-400/50"></div>
+  </div>
+
+  <!-- FLOATING STUDIO CONTROLS (Desktop Only, Bottom Right) -->
+  <aside aria-label="Studio Controls" class="hidden sm:flex fixed bottom-6 right-6 z-40 items-center gap-2 p-1.5 rounded-full bg-zinc-950/90 backdrop-blur-md border border-zinc-800 shadow-2xl">
+    <!-- Viewfinder Toggle -->
+    <button 
+      id="viewfinder-toggle-btn" 
+      title="Toggle Camera Viewfinder Overlay (Press 'V')"
+      class="w-10 h-10 rounded-full flex items-center justify-center text-zinc-400 hover:text-amber-400 hover:bg-zinc-800 transition-colors">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+      </svg>
+    </button>
+
+    <!-- Sound FX Shutter Toggle -->
+    <button 
+      id="sound-toggle-btn" 
+      title="Toggle Mechanical Shutter Audio"
+      class="w-10 h-10 rounded-full flex items-center justify-center text-zinc-400 hover:text-amber-400 hover:bg-zinc-800 transition-colors">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+      </svg>
+    </button>
+
+    <!-- Config Guide Trigger -->
+    <button 
+      title="Client Setup & Replace Work Guide"
+      class="open-config-guide-trigger px-3 py-1.5 rounded-full bg-amber-400 text-black text-xs font-semibold hover:bg-amber-300 transition-colors flex items-center gap-1.5 shadow-lg shadow-amber-400/20">
+      <span>⚙ Guide</span>
+    </button>
+  </aside>
+
+  <!-- PRIMARY FLOATING NAVIGATION -->
+  <header>
+    <nav id="primary-navbar" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 py-4 sm:py-6 px-4 sm:px-6 lg:px-12 flex items-center justify-between">
+      <a href="#hero" class="flex flex-col group">
+        <span class="font-display text-base sm:text-lg lg:text-xl font-bold tracking-wider sm:tracking-widest text-zinc-100 group-hover:text-amber-200 transition-colors">
+          AAKASH JAISWAL
+        </span>
+        <span class="text-[8px] sm:text-[9px] uppercase tracking-wider sm:tracking-widest text-zinc-400 font-mono">
+          Photography · Film · Direction
+        </span>
+      </a>
+
+      <!-- Desktop Nav Items -->
+      <div class="hidden lg:flex items-center gap-8 text-xs uppercase tracking-widest font-medium text-zinc-300">
+        <a href="#hero" class="hover:text-amber-300 transition-colors hover-underline-animation">Home</a>
+        <a href="#about" class="hover:text-amber-300 transition-colors hover-underline-animation">About</a>
+        <a href="#portfolio" class="hover:text-amber-300 transition-colors hover-underline-animation">Photography</a>
+        <a href="#stories" class="hover:text-amber-300 transition-colors hover-underline-animation">Stories</a>
+        <a href="#videography" class="hover:text-amber-300 transition-colors hover-underline-animation">Films</a>
+        <a href="#services" class="hover:text-amber-300 transition-colors hover-underline-animation">Services</a>
+        <a href="#process" class="hover:text-amber-300 transition-colors hover-underline-animation">Process</a>
+        <a href="#contact" class="hover:text-amber-300 transition-colors hover-underline-animation">Contact</a>
+      </div>
+
+      <div class="flex items-center gap-2.5 sm:gap-4">
+        <!-- Mobile Direct WhatsApp Pill -->
+        <a 
+          href="https://wa.me/919696915516?text=Hi%20Aakash!%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20discuss%20a%20project." 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="sm:hidden px-3 py-1.5 rounded-full bg-emerald-600/90 text-white text-[11px] font-bold flex items-center gap-1 shadow-md shadow-emerald-950/40 active:scale-95 transition-all">
+          <span>💬</span>
+          <span>Chat</span>
+        </a>
+
+        <a 
+          href="#contact" 
+          class="hidden sm:inline-flex px-5 py-2.5 rounded-full bg-amber-400 hover:bg-amber-300 text-black text-xs font-semibold uppercase tracking-wider transition-all duration-300 shadow-lg shadow-amber-400/15 hover:shadow-amber-400/25">
+          Inquire Project
+        </a>
+
+        <!-- Mobile Menu Toggle Button (44px touch target) -->
+        <button 
+          id="mobile-menu-btn"
+          class="lg:hidden w-10 h-10 flex items-center justify-center rounded-xl bg-zinc-900/90 border border-zinc-800 text-zinc-300 hover:text-white active:scale-95 transition-all"
+          aria-label="Toggle Navigation">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+          </svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- FULLSCREEN LUXURY MOBILE NAVIGATION DRAWER -->
+  <div id="mobile-nav-drawer" class="drawer-closed fixed inset-0 z-50 bg-[#050507]/98 backdrop-blur-2xl flex flex-col justify-between p-6 sm:p-8 overflow-y-auto safe-area-bottom">
+    <div>
+      <div class="flex items-center justify-between pb-5 border-b border-zinc-800">
+        <div class="flex flex-col">
+          <span class="font-display text-lg font-bold text-white tracking-wider">AAKASH JAISWAL</span>
+          <span class="text-[10px] uppercase tracking-widest text-amber-300 font-mono">5–6 Years Experience · Freelance</span>
+        </div>
+        <button id="close-mobile-nav-btn" class="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-300 hover:text-white active:scale-95 transition-all" aria-label="Close Navigation">
+          ✕
+        </button>
+      </div>
+
+      <!-- Quick Nav Links -->
+      <nav class="flex flex-col gap-3.5 mt-6 text-lg sm:text-xl font-display font-medium text-zinc-200">
+        <a href="#hero" class="mobile-nav-link flex items-center justify-between py-1.5 hover:text-amber-300 transition-colors border-b border-zinc-900/80">
+          <span>01. Home</span>
+          <span class="text-[10px] font-mono text-zinc-500 uppercase">Overview</span>
+        </a>
+        <a href="#about" class="mobile-nav-link flex items-center justify-between py-1.5 hover:text-amber-300 transition-colors border-b border-zinc-900/80">
+          <span>02. About Aakash</span>
+          <span class="text-[10px] font-mono text-zinc-500 uppercase">Experience</span>
+        </a>
+        <a href="#portfolio" class="mobile-nav-link flex items-center justify-between py-1.5 hover:text-amber-300 transition-colors border-b border-zinc-900/80">
+          <span>03. Selected Frames</span>
+          <span class="text-[10px] font-mono text-amber-400 uppercase font-bold">5 Pillars</span>
+        </a>
+        <a href="#stories" class="mobile-nav-link flex items-center justify-between py-1.5 hover:text-amber-300 transition-colors border-b border-zinc-900/80">
+          <span>04. Signature Stories</span>
+          <span class="text-[10px] font-mono text-zinc-500 uppercase">Case Studies</span>
+        </a>
+        <a href="#videography" class="mobile-nav-link flex items-center justify-between py-1.5 hover:text-amber-300 transition-colors border-b border-zinc-900/80">
+          <span>05. Films &amp; Showreel</span>
+          <span class="text-[10px] font-mono text-zinc-500 uppercase">Video Editing</span>
+        </a>
+        <a href="#services" class="mobile-nav-link flex items-center justify-between py-1.5 hover:text-amber-300 transition-colors border-b border-zinc-900/80">
+          <span>06. Creative Services</span>
+          <span class="text-[10px] font-mono text-zinc-500 uppercase">Capabilities</span>
+        </a>
+        <a href="#process" class="mobile-nav-link flex items-center justify-between py-1.5 hover:text-amber-300 transition-colors border-b border-zinc-900/80">
+          <span>07. Creative Process</span>
+          <span class="text-[10px] font-mono text-zinc-500 uppercase">5 Steps</span>
+        </a>
+        <a href="#contact" class="mobile-nav-link flex items-center justify-between py-2 text-amber-300 hover:text-amber-200 transition-colors">
+          <span>08. Inquire &amp; Book</span>
+          <span class="text-[10px] font-mono text-amber-400 font-bold uppercase">Direct Contact →</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Direct Contact Actions inside Drawer -->
+    <div class="mt-8 pt-5 border-t border-zinc-800 space-y-3">
+      <div class="grid grid-cols-2 gap-3">
+        <a 
+          href="https://wa.me/919696915516?text=Hi%20Aakash!%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20discuss%20a%20project." 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold font-mono flex items-center justify-center gap-2 active:scale-95 transition-all shadow-lg shadow-emerald-950/40">
+          <span>💬 WhatsApp</span>
+        </a>
+        <a 
+          href="tel:+919696915516" 
+          class="py-3 px-4 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-bold font-mono flex items-center justify-center gap-2 active:scale-95 transition-all border border-zinc-700">
+          <span>📞 Call Line</span>
+        </a>
+      </div>
+
+      <div class="p-3 rounded-xl bg-zinc-900/80 border border-zinc-800 text-xs font-mono text-zinc-400 flex items-center justify-between">
+        <span>Email: <a href="mailto:akashjais1187@gmail.com" class="text-amber-300 font-semibold">akashjais1187@gmail.com</a></span>
+      </div>
+
+      <!-- Studio Controls inside Drawer -->
+      <div class="flex items-center justify-between pt-2 text-xs font-mono text-zinc-400">
+        <button id="mobile-sound-toggle-btn" class="flex items-center gap-1.5 text-zinc-400 hover:text-amber-300 p-1">
+          <span>🔊 Shutter Audio: <span id="mobile-sound-status" class="text-amber-300 font-bold">ON</span></span>
+        </button>
+        <button id="mobile-viewfinder-toggle-btn" class="flex items-center gap-1.5 text-zinc-400 hover:text-amber-300 p-1">
+          <span>📐 Viewfinder: <span id="mobile-vf-status" class="text-zinc-500 font-bold">OFF</span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 04. HERO — THE SIGNATURE EXPERIENCE -->
+  <section id="hero" class="relative min-h-screen min-h-[100dvh] flex items-center justify-center overflow-hidden pt-24 pb-16">
+    
+    <!-- Full-Bleed Parallax Photographic Background -->
+    <div class="absolute inset-0 z-0 overflow-hidden">
+      <img 
+        id="hero-parallax-img"
+        src="/images/travel/tehri-dam-turquoise-reservoir.jpg" 
+        alt="Master Photographic Composition by Aakash Jaiswal" 
+        class="w-full h-full object-cover animate-hero-pan scale-105 transition-transform duration-300 ease-out"
+      />
+      <!-- Luxury Dark Vignette -->
+      <div class="absolute inset-0 bg-gradient-to-t from-[#050507] via-black/55 to-black/70"></div>
+      <div class="absolute inset-0 hero-vignette"></div>
+    </div>
+
+    <!-- Hero Content -->
+    <div class="relative z-10 max-w-6xl mx-auto px-6 text-center flex flex-col items-center">
+      
+      <!-- Experience Badge -->
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/80 backdrop-blur-md border border-amber-400/30 text-[11px] uppercase tracking-widest text-amber-300 mb-6 font-mono">
+        <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+        <span id="hero-exp-badge">5–6 Years Industry Experience · Freelance Professional</span>
+      </div>
+
+      <!-- Main Headline (Oversized Editorial Typography) -->
+      <h1 class="font-display text-hero-headline font-black text-white uppercase tracking-tight mb-4">
+        AAKASH<br />JAISWAL.
+      </h1>
+
+      <!-- Supporting Headline -->
+      <p id="hero-tagline" class="font-display text-xl sm:text-2xl md:text-3xl italic text-amber-200/90 font-light mb-5">
+        "Every Frame Tells a Story."
+      </p>
+
+      <!-- Professional Description -->
+      <p id="hero-subtitle" class="max-w-2xl text-xs sm:text-sm md:text-base text-zinc-300 leading-relaxed font-light mb-10">
+        An independent photographer and visual storyteller with 5–6 years of experience capturing weddings, portraits, events, products, and travel stories.
+      </p>
+
+      <!-- Primary & Secondary CTAs -->
+      <div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+        <a 
+          href="#portfolio" 
+          class="w-full sm:w-auto px-8 py-4 rounded-full bg-amber-400 hover:bg-amber-300 text-black text-xs uppercase tracking-widest font-bold transition-all duration-300 shadow-xl shadow-amber-400/20 hover:scale-105 flex items-center justify-center gap-2">
+          <span>EXPLORE SELECTED WORK</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+        </a>
+
+        <a 
+          href="#contact" 
+          class="w-full sm:w-auto px-8 py-4 rounded-full bg-zinc-950/80 hover:bg-zinc-900 text-zinc-200 border border-zinc-700 text-xs uppercase tracking-widest font-semibold transition-all duration-300 hover:border-amber-400/50 flex items-center justify-center">
+          LET'S CREATE SOMETHING
+        </a>
+      </div>
+
+      <!-- Verified Suite Pill in Hero (Mobile-Optimized) -->
+      <div class="mt-8 flex md:hidden items-center justify-center flex-wrap gap-2 text-[10px] font-mono text-zinc-400">
+        <span class="px-2.5 py-1 rounded-full bg-black/60 border border-zinc-800 text-amber-200">💍 Wedding</span>
+        <span class="px-2.5 py-1 rounded-full bg-black/60 border border-zinc-800 text-zinc-300">👤 Portrait</span>
+        <span class="px-2.5 py-1 rounded-full bg-black/60 border border-zinc-800 text-zinc-300">⚡ Event</span>
+        <span class="px-2.5 py-1 rounded-full bg-black/60 border border-zinc-800 text-zinc-300">⌚ Product</span>
+        <span class="px-2.5 py-1 rounded-full bg-black/60 border border-zinc-800 text-zinc-300">🏔️ Travel</span>
+      </div>
+
+      <!-- Verified Suite Pill in Hero (Desktop) -->
+      <div class="mt-14 hidden md:flex items-center gap-6 px-6 py-2.5 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-xs font-mono text-zinc-400">
+        <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-amber-400"></span> WEDDING</span>
+        <span>•</span>
+        <span>PORTRAIT</span>
+        <span>•</span>
+        <span>EVENT</span>
+        <span>•</span>
+        <span>PRODUCT</span>
+        <span>•</span>
+        <span>TRAVEL</span>
+      </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <a href="#about" class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-zinc-400 hover:text-amber-300 transition-colors">
+      <span class="text-[10px] uppercase tracking-widest font-mono">Scroll to Discover</span>
+      <div class="w-5 h-9 rounded-full border-2 border-zinc-600 flex items-start justify-center p-1">
+        <div class="w-1 h-2 rounded-full bg-amber-400 animate-bounce"></div>
+      </div>
+    </a>
+  </section>
+
+  <!-- 09. ABOUT — THE CREATIVE MIND BEHIND THE LENS -->
+  <section id="about" class="py-28 px-6 lg:px-12 max-w-7xl mx-auto border-t border-zinc-900">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      
+      <!-- Left Column: Authentic Editorial Portrait -->
+      <div class="lg:col-span-5 relative">
+        <div class="relative rounded-3xl overflow-hidden border border-zinc-800 bg-zinc-900 shadow-2xl group">
+          <img 
+            id="about-portrait-img"
+            src="/images/portrait/aakash-jaiswal-editorial-portrait.jpg" 
+            alt="Aakash Jaiswal — Professional Photographer, Visual Storyteller & Video Editor" 
+            class="w-full aspect-[4/5] object-cover object-top contrast-105 group-hover:scale-105 transition-transform duration-700"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80"></div>
+          
+          <div class="absolute bottom-6 left-6 right-6 p-5 rounded-2xl bg-black/85 backdrop-blur-md border border-zinc-800/80">
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="text-sm font-display font-bold text-white tracking-wide">AAKASH JAISWAL</h3>
+                <p class="text-[11px] font-mono text-amber-300">Photographer · Visual Storyteller · Video Editor</p>
+              </div>
+              <div class="text-[10px] font-mono text-zinc-400 text-right leading-tight">
+                <span class="text-amber-200/90 font-semibold">5–6 YRS</span><br />
+                FREELANCE
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Viewfinder Corners -->
+        <div class="absolute -top-3 -left-3 w-6 h-6 border-t-2 border-l-2 border-amber-400/60 pointer-events-none"></div>
+        <div class="absolute -bottom-3 -right-3 w-6 h-6 border-b-2 border-r-2 border-amber-400/60 pointer-events-none"></div>
+      </div>
+
+      <!-- Right Column: Editorial Copy -->
+      <div class="lg:col-span-7 flex flex-col justify-center">
+        <div class="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-amber-400 font-mono mb-3">
+          <span>// 01 — THE CREATIVE MIND BEHIND THE LENS</span>
+        </div>
+
+        <h2 id="about-heading" class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight mb-3">
+          Not Just Taking Pictures. Capturing Perspectives.
+        </h2>
+
+        <p id="about-subheading" class="text-sm font-mono text-amber-200/80 mb-6">
+          Behind the lens, every shadow, glance, and ray of light has intention.
+        </p>
+
+        <p id="about-text-1" class="text-sm sm:text-base text-zinc-300 leading-relaxed font-light mb-4">
+          <!-- Dynamically populated via app.js -->
+        </p>
+
+        <p id="about-text-2" class="text-sm sm:text-base text-zinc-400 leading-relaxed font-light mb-8">
+          <!-- Dynamically populated via app.js -->
+        </p>
+
+        <!-- 5 Core Pillars Badges -->
+        <div class="flex flex-wrap gap-2 mb-10">
+          <span class="px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs text-zinc-300">Wedding Photography</span>
+          <span class="px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs text-zinc-300">Portrait Photography</span>
+          <span class="px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs text-zinc-300">Event Photography</span>
+          <span class="px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs text-zinc-300">Product Photography</span>
+          <span class="px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs text-zinc-300">Travel Photography</span>
+        </div>
+
+        <!-- 4 Verified Metrics -->
+        <div id="about-stats-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-4"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 06. SELECTED WORK — IMMERSIVE PHOTOGRAPHY GALLERY (AWWARDS-GRADE FULL-BLEED HORIZONTAL REEL) -->
+  <section id="portfolio" class="py-24 sm:py-28 w-full border-t border-zinc-900 relative overflow-hidden">
+    
+    <!-- Aligned Header Container -->
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 mb-8 sm:mb-10">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div>
+          <div class="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-amber-400 font-mono mb-2">
+            <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+            <span>// 02 — SELECTED WORK</span>
+          </div>
+          <h2 class="font-display text-3xl sm:text-5xl font-bold text-white tracking-tight">
+            Selected Frames. Unforgettable Stories.
+          </h2>
+          <p class="text-xs sm:text-sm text-zinc-400 max-w-xl mt-2 leading-relaxed">
+            Curated authentic captures by Aakash Jaiswal. Smooth 35mm side-glide animation, horizontal momentum drag, and fullscreen optical EXIF study.
+          </p>
+        </div>
+
+        <!-- Controls: View Full Album & Slider Navigation -->
+        <div class="flex items-center gap-3 self-start md:self-auto flex-wrap">
+          <!-- PRIMARY ACTION: View Full Exhibition Album Button -->
+          <button 
+            id="open-full-album-btn"
+            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-amber-400 to-amber-300 hover:from-amber-300 hover:to-amber-200 text-black font-semibold text-xs tracking-wider uppercase transition-all shadow-lg hover:shadow-amber-400/25 active-touch group">
+            <svg class="w-4 h-4 fill-current transform group-hover:scale-110 transition-transform" viewBox="0 0 24 24">
+              <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12zm-6-1l-2.5-3.01L8 14.5h12l-3.75-5z"/>
+            </svg>
+            <span>View Full Album (44)</span>
+          </button>
+
+          <!-- View Mode Switch: Cinema Reel (Side) vs Compact Grid -->
+          <div class="inline-flex items-center p-1 rounded-full bg-zinc-900/90 border border-zinc-800 text-xs font-mono">
+            <button 
+              id="view-mode-reel-btn" 
+              class="px-3.5 py-1.5 rounded-full bg-amber-400 text-black font-semibold flex items-center gap-1.5 transition-all shadow-md active-touch">
+              <span>🎞 Reel</span>
+            </button>
+            <button 
+              id="view-mode-grid-btn" 
+              class="px-3.5 py-1.5 rounded-full text-zinc-400 hover:text-white transition-all flex items-center gap-1.5 active-touch">
+              <span>☵ Grid</span>
+            </button>
+          </div>
+
+          <!-- Slider Arrows -->
+          <div id="gallery-reel-arrows" class="flex items-center gap-2">
+            <button 
+              id="gallery-reel-prev" 
+              class="w-10 h-10 rounded-full bg-zinc-900/90 hover:bg-amber-400 hover:text-black border border-zinc-800 text-white flex items-center justify-center transition-all active-touch shadow-lg"
+              title="Previous Frame (Scroll Left)">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/></svg>
+            </button>
+            <button 
+              id="gallery-reel-next" 
+              class="w-10 h-10 rounded-full bg-zinc-900/90 hover:bg-amber-400 hover:text-black border border-zinc-800 text-white flex items-center justify-center transition-all active-touch shadow-lg"
+              title="Next Frame (Scroll Right)">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category Filter Bar (5 Core Collections + All) -->
+      <div class="mt-6 overflow-x-auto pb-2 scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0">
+        <div id="gallery-category-nav" class="flex items-center gap-2 sm:gap-2.5 min-w-max py-1"></div>
+      </div>
+    </div>
+
+    <!-- FULL-BLEED 100VW CINEMATIC HORIZONTAL REEL SHOWCASE (NO MAX-WIDTH RESTRICTION - SPANS ACROSS SCREEN) -->
+    <div id="gallery-reel-container" class="relative group w-full overflow-hidden">
+      <!-- Vignette edge gradients for luxury depth -->
+      <div class="pointer-events-none absolute left-0 top-0 bottom-0 w-8 sm:w-20 bg-gradient-to-r from-[#050507] to-transparent z-10 opacity-75"></div>
+      <div class="pointer-events-none absolute right-0 top-0 bottom-0 w-8 sm:w-20 bg-gradient-to-l from-[#050507] to-transparent z-10 opacity-75"></div>
+
+      <!-- Horizontal Scrolling Stage: Edge to Edge Across the Viewport -->
+      <div 
+        id="gallery-reel-track" 
+        class="flex gap-4 sm:gap-6 overflow-x-auto scrollbar-none py-4 px-4 sm:px-8 cursor-grab select-none w-full">
+        <!-- Rendered dynamically via JavaScript -->
+      </div>
+    </div>
+
+    <!-- Aligned Reel Footer Bar: Status, Frame Counter & Progress Bar -->
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 mt-4">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-zinc-400">
+        <div class="flex items-center gap-3">
+          <button 
+            id="reel-autoplay-toggle" 
+            class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/80 border border-zinc-800 hover:border-amber-400/50 text-[11px] text-amber-300 transition-all active-touch">
+            <span id="reel-autoplay-dot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span id="reel-autoplay-text">Auto-Glide Active</span>
+          </button>
+          <span class="hidden sm:inline text-zinc-600">|</span>
+          <span class="text-zinc-400 hidden sm:inline">↔ Drag sideways, swipe, or use mouse wheel to slide</span>
+        </div>
+
+        <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
+          <span id="reel-frame-counter" class="text-amber-300 font-semibold">Frame 01 of 44</span>
+          <!-- Sleek Progress Track -->
+          <div class="w-28 sm:w-44 h-1.5 rounded-full bg-zinc-800/80 overflow-hidden relative">
+            <div id="reel-progress-fill" class="h-full bg-gradient-to-r from-amber-400 to-amber-200 w-0 transition-all duration-150"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MASONRY GRID (COLLAPSIBLE / ALTERNATE VIEW) -->
+    <div id="gallery-grid-container" class="hidden max-w-7xl mx-auto px-6 lg:px-12 mt-8">
+      <div id="gallery-masonry-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      
+      <!-- Load More / Collapse Button if in Grid Mode -->
+      <div class="mt-10 text-center" id="grid-expand-wrapper">
+        <button 
+          id="grid-expand-toggle-btn" 
+          class="px-7 py-3 rounded-full bg-zinc-900 border border-zinc-700 hover:border-amber-400 text-xs font-mono text-amber-300 transition-all active-touch shadow-lg">
+          Show All 44 Frames ↓
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07. SIGNATURE PROJECT STORYTELLING (MAGAZINE EDITORIAL CASE STUDIES) -->
+  <section id="stories" class="py-24 sm:py-28 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto border-t border-zinc-900 relative">
+    
+    <!-- Section Header & Navigation Controls -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 gap-6">
+      <div class="max-w-2xl">
+        <div class="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-amber-400 font-mono mb-2">
+          <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+          <span>// 03 — SIGNATURE PROJECT STORYTELLING</span>
+        </div>
+        <h2 class="font-display text-3xl sm:text-5xl font-bold text-white tracking-tight">
+          Visual Essays. Editorial Case Studies.
+        </h2>
+        <p class="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed">
+          Deep-dive photographic essays exploring light modulation, cultural reverence, and behind-the-shutter discipline across standout field assignments.
+        </p>
+      </div>
+
+      <!-- Essay Switcher Navigation -->
+      <div class="flex items-center gap-3 self-start md:self-auto flex-wrap">
+        <div id="story-tabs-nav" class="inline-flex items-center p-1 rounded-full bg-zinc-900/90 border border-zinc-800 text-xs font-mono">
+          <!-- Rendered via JS: Essay 01, Essay 02, Essay 03 -->
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button 
+            id="story-prev-btn" 
+            class="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 text-white hover:bg-amber-400 hover:text-black flex items-center justify-center transition-all active-touch shadow-lg"
+            title="Previous Essay">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/></svg>
+          </button>
+          <button 
+            id="story-next-btn" 
+            class="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 text-white hover:bg-amber-400 hover:text-black flex items-center justify-center transition-all active-touch shadow-lg"
+            title="Next Essay">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACTIVE EDITORIAL SPREAD STAGE -->
+    <div id="active-story-stage" class="relative rounded-3xl overflow-hidden bg-zinc-900/90 border border-zinc-800/90 p-5 sm:p-8 lg:p-10 mb-10 shadow-2xl transition-all duration-500">
+      <!-- Dynamic double-page spread injected via JS -->
+    </div>
+
+    <!-- CURATED 3-COLUMN MAGAZINE COVER SELECTOR STRIP -->
+    <div>
+      <div class="flex items-center justify-between mb-4 pb-2 border-b border-zinc-800/60 text-xs font-mono text-zinc-400">
+        <span class="uppercase tracking-widest text-amber-400">// Visual Essay Index</span>
+        <span>Select an essay to load editorial spread</span>
+      </div>
+      <div id="story-cover-cards-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- 3 Magazine covers injected via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- STORY DETAIL CASE STUDY MODAL -->
+  <div id="story-detail-modal" class="hidden fixed inset-0 z-50 lightbox-backdrop bg-black/95 flex flex-col justify-start p-4 sm:p-8 lg:p-12 overflow-y-auto">
+    <div class="max-w-5xl mx-auto w-full bg-zinc-900/90 border border-zinc-800 rounded-3xl p-6 sm:p-10 shadow-2xl relative">
+      <button 
+        id="story-modal-close-btn" 
+        class="absolute top-6 right-6 z-20 p-2.5 rounded-full bg-zinc-800 text-zinc-300 hover:text-white"
+        title="Close Story (ESC)">
+        ✕
+      </button>
+
+      <div id="story-modal-content"></div>
+    </div>
+  </div>
+
+  <!-- DEDICATED FULL EXHIBITION ALBUM MODAL (ALL 44 AUTHENTIC PHOTOGRAPHS) -->
+  <div id="full-album-modal" class="hidden fixed inset-0 z-50 bg-[#050507]/95 backdrop-blur-2xl flex flex-col justify-start overflow-hidden">
+    
+    <!-- Album Sticky Header -->
+    <div class="flex-shrink-0 border-b border-zinc-800/80 bg-zinc-950/90 backdrop-blur-xl px-4 sm:px-8 py-4 sm:py-5 z-20">
+      <div class="max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-amber-400 mb-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+            <span>Aakash Jaiswal Photography Archive</span>
+            <span class="text-zinc-600">·</span>
+            <span class="text-zinc-400">Complete Exhibition</span>
+          </div>
+          <h2 class="font-display text-xl sm:text-2xl font-bold text-white tracking-tight">
+            Complete Photographic Works (44 Frames)
+          </h2>
+        </div>
+
+        <!-- Album Category Filter Bar -->
+        <div id="album-category-nav" class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none max-w-full">
+          <!-- Rendered via JS -->
+        </div>
+
+        <!-- Close Album Button -->
+        <button 
+          id="close-full-album-btn"
+          class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-900 border border-zinc-800 hover:border-amber-400 text-zinc-300 hover:text-white text-xs font-mono transition-all self-end lg:self-auto active-touch shadow-lg"
+          title="Close Album (ESC)">
+          <span>Close Album</span>
+          <span class="text-amber-400 font-bold">✕</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Album Scrollable Content Grid -->
+    <div class="flex-1 overflow-y-auto px-4 sm:px-8 py-8 sm:py-12 scrollbar-none">
+      <div class="max-w-7xl mx-auto">
+        <!-- Frame counter note -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-8 pb-4 border-b border-zinc-900 text-xs font-mono text-zinc-400">
+          <span id="album-counter-display" class="text-amber-300 font-medium">Showing All 44 Authentic Photographs</span>
+          <span class="text-zinc-500">💡 Click any frame to inspect in 4K Fullscreen Lightbox with technical EXIF</span>
+        </div>
+
+        <!-- The Exhibition Gallery Grid -->
+        <div id="full-album-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FULLSCREEN IMAGE LIGHTBOX MODAL -->
+  <div id="image-lightbox-modal" class="hidden fixed inset-0 z-50 lightbox-backdrop bg-black/95 flex flex-col justify-between p-4 sm:p-6 lg:p-8">
+    <div class="flex items-center justify-between pb-4 border-b border-zinc-800">
+      <div class="flex items-center gap-3">
+        <span id="lightbox-category" class="px-2.5 py-1 rounded bg-amber-400 text-black text-[10px] font-bold uppercase tracking-wider font-mono">
+          Category
+        </span>
+        <span id="lightbox-counter" class="text-xs font-mono text-zinc-400">
+          1 / 10
+        </span>
+      </div>
+
+      <button 
+        id="lightbox-close-btn" 
+        class="p-2 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white hover:bg-zinc-800 transition-colors"
+        title="Close Lightbox (ESC)">
+        ✕
+      </button>
+    </div>
+
+    <!-- Mobile Swipe Hint -->
+    <div class="sm:hidden text-[10px] font-mono text-amber-300/80 text-center py-1">
+      ← Swipe left or right to browse frames →
+    </div>
+
+    <div class="relative flex-1 flex flex-col lg:flex-row items-center justify-center my-2 sm:my-4 overflow-y-auto lg:overflow-hidden gap-4 lg:gap-8">
+      <button 
+        id="lightbox-prev-btn" 
+        class="absolute left-2 sm:left-6 z-20 p-2.5 sm:p-3 rounded-full bg-black/60 border border-white/10 text-white hover:bg-amber-400 hover:text-black transition-all active:scale-95"
+        title="Previous Image (Left Arrow)">
+        ←
+      </button>
+
+      <div class="w-full lg:w-2/3 h-full flex items-center justify-center p-1 sm:p-2">
+        <img 
+          id="lightbox-main-img" 
+          src="" 
+          alt="Portfolio Frame" 
+          class="max-h-[48vh] sm:max-h-[65vh] lg:max-h-[75vh] max-w-full object-contain rounded-lg shadow-2xl"
+        />
+      </div>
+
+      <div class="w-full lg:w-1/3 max-h-none lg:max-h-[75vh] overflow-y-auto bg-zinc-900/90 rounded-2xl p-4 sm:p-6 border border-zinc-800 flex flex-col justify-between">
+        <div>
+          <p id="lightbox-client" class="text-xs font-mono text-amber-300 mb-1"></p>
+          <h2 id="lightbox-title" class="font-display text-2xl font-bold text-white mb-3"></h2>
+          <p id="lightbox-description" class="text-xs text-zinc-300 leading-relaxed mb-6 font-light"></p>
+
+          <div class="border-t border-zinc-800 pt-4">
+            <h3 class="text-[10px] font-mono uppercase tracking-widest text-zinc-400 mb-3">Camera &amp; Optics Metadata</h3>
+            <div class="grid grid-cols-2 gap-3 text-xs font-mono">
+              <div class="p-2.5 rounded bg-zinc-950 border border-zinc-800">
+                <span class="text-[10px] text-zinc-500 block">BODY</span>
+                <span id="lightbox-camera" class="text-zinc-200"></span>
+              </div>
+              <div class="p-2.5 rounded bg-zinc-950 border border-zinc-800">
+                <span class="text-[10px] text-zinc-500 block">LENS</span>
+                <span id="lightbox-lens" class="text-zinc-200"></span>
+              </div>
+              <div class="p-2.5 rounded bg-zinc-950 border border-zinc-800">
+                <span class="text-[10px] text-zinc-500 block">APERTURE</span>
+                <span id="lightbox-aperture" class="text-amber-300"></span>
+              </div>
+              <div class="p-2.5 rounded bg-zinc-950 border border-zinc-800">
+                <span class="text-[10px] text-zinc-500 block">SHUTTER</span>
+                <span id="lightbox-shutter" class="text-zinc-200"></span>
+              </div>
+              <div class="p-2.5 rounded bg-zinc-950 border border-zinc-800">
+                <span class="text-[10px] text-zinc-500 block">ISO</span>
+                <span id="lightbox-iso" class="text-zinc-200"></span>
+              </div>
+              <div class="p-2.5 rounded bg-zinc-950 border border-zinc-800">
+                <span class="text-[10px] text-zinc-500 block">FOCAL</span>
+                <span id="lightbox-focal" class="text-zinc-200"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-zinc-800">
+          <a 
+            href="#contact" 
+            onclick="document.getElementById('lightbox-close-btn').click();"
+            class="w-full py-2.5 rounded-lg bg-amber-400 text-black text-xs font-semibold uppercase tracking-wider hover:bg-amber-300 transition-colors flex items-center justify-center gap-2">
+            Inquire for a Similar Shoot →
+          </a>
+        </div>
+      </div>
+
+      <button 
+        id="lightbox-next-btn" 
+        class="absolute right-2 sm:right-6 z-20 p-3 rounded-full bg-black/60 border border-white/10 text-white hover:bg-amber-400 hover:text-black transition-all"
+        title="Next Image (Right Arrow)">
+        →
+      </button>
+    </div>
+
+    <div class="pt-3 border-t border-zinc-800 overflow-x-auto scrollbar-none">
+      <div id="lightbox-filmstrip" class="flex items-center gap-2 min-w-max"></div>
+    </div>
+  </div>
+
+  <!-- 08. FILMS & VIDEO EDITING SHOWREEL -->
+  <section id="videography" class="py-28 px-6 lg:px-12 max-w-7xl mx-auto border-t border-zinc-900">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+      <div>
+        <div class="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-amber-400 font-mono mb-2">
+          <span>// 04 — FILMS &amp; VIDEO EDITING SHOWREEL</span>
+        </div>
+        <h2 class="font-display text-3xl sm:text-5xl font-bold text-white tracking-tight">
+          Still Moments. Moving Stories.
+        </h2>
+        <p class="text-xs sm:text-sm text-zinc-400 max-w-2xl mt-2 leading-relaxed">
+          Cinematic pacing, rhythm beat-matching, and color grading in Adobe Premiere Pro. Explore wedding teaser films, event recaps, and 9:16 vertical reels.
+        </p>
+      </div>
+
+      <div id="video-filter-nav" class="flex flex-wrap items-center gap-2"></div>
+    </div>
+
+<!-- Video Cards Grid -->
+    <div id="video-cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+  </section>
+
+  <!-- VIDEO MODAL -->
+  <div id="video-player-modal" class="hidden fixed inset-0 z-50 lightbox-backdrop bg-black/95 flex flex-col justify-center items-center p-4 sm:p-8">
+    <div class="relative w-full max-w-4xl bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden shadow-2xl flex flex-col">
+      <div class="flex items-center justify-between p-5 border-b border-zinc-800">
+        <div>
+          <h2 id="video-modal-title" class="font-display text-lg font-bold text-white"></h2>
+          <p id="video-modal-role" class="text-xs font-mono text-amber-300 mt-0.5"></p>
+        </div>
+        <button 
+          id="video-modal-close-btn" 
+          class="p-2 rounded-full bg-zinc-800 text-zinc-300 hover:text-white"
+          title="Close Video (ESC)">
+          ✕
+        </button>
+      </div>
+
+      <div id="video-embed-container" class="p-4 bg-black flex items-center justify-center"></div>
+
+      <div class="p-5 border-t border-zinc-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <p id="video-modal-synopsis" class="text-xs text-zinc-300 max-w-xl font-light"></p>
+        <div id="video-modal-tags" class="flex flex-wrap gap-2"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10. SERVICES — CREATIVE EXPERTISE -->
+  <section id="services" class="py-28 px-6 lg:px-12 max-w-7xl mx-auto border-t border-zinc-900">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <div class="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-amber-400 font-mono mb-2">
+        <span>// 05 — CREATIVE EXPERTISE</span>
+      </div>
+      <h2 class="font-display text-3xl sm:text-5xl font-bold text-white tracking-tight">
+        Services &amp; Capabilities
+      </h2>
+      <p class="text-xs sm:text-sm text-zinc-400 mt-3 leading-relaxed">
+        Bespoke freelance commissions across Photography, Photoshop/Lightroom Post-Production, and Premiere Pro Video Editing.
+      </p>
+
+      <div id="services-tabs-nav" class="flex items-center justify-center gap-4 sm:gap-8 mt-8 border-b border-zinc-800"></div>
+    </div>
+
+    <div id="services-content-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  </section>
+
+  <!-- 11. CREATIVE PROCESS -->
+  <section id="process" class="py-28 px-6 lg:px-12 max-w-7xl mx-auto border-t border-zinc-900">
+    <div class="max-w-3xl mb-16">
+      <div class="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-amber-400 font-mono mb-2">
+        <span>// 06 — THE METHODOLOGY</span>
+      </div>
+      <h2 class="font-display text-3xl sm:text-5xl font-bold text-white tracking-tight">
+        The 5-Step Creative Process
+      </h2>
+      <p class="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed">
+        From initial discovery to final high-resolution delivery, every stage is executed with artistic intention and clear client communication.
+      </p>
+    </div>
+
+    <!-- Horizontal on Desktop, Vertical on Mobile -->
+    <div id="creative-process-container" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6"></div>
+  </section>
+
+  <!-- 13. EQUIPMENT & SOFTWARE -->
+  <section id="equipment" class="py-28 px-6 lg:px-12 max-w-7xl mx-auto border-t border-zinc-900">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+      <div>
+        <div class="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-amber-400 font-mono mb-2">
+          <span>// 07 — CREATIVE TOOLKIT</span>
+        </div>
+        <h2 class="font-display text-3xl sm:text-5xl font-bold text-white tracking-tight">
+          Software Suite &amp; Equipment
+        </h2>
+        <p class="text-xs sm:text-sm text-zinc-400 max-w-2xl mt-2 leading-relaxed">
+          Mastery in Adobe Photoshop, Lightroom, and Premiere Pro. Hardware equipment is listed with configurable placeholders.
+        </p>
+      </div>
+    </div>
+
+    <div id="equipment-toolkit-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  </section>
+
+  <!-- 12. EXPERIENCE & PROFESSIONAL CREDIBILITY -->
+  <section id="journey" class="py-28 px-6 lg:px-12 max-w-5xl mx-auto border-t border-zinc-900">
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <div class="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-amber-400 font-mono mb-2">
+        <span>// 08 — PROFESSIONAL TIMELINE</span>
+      </div>
+      <h2 class="font-display text-3xl sm:text-5xl font-bold text-white tracking-tight">
+        5–6 Years of Freelance Craft
+      </h2>
+      <p class="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed">
+        A progressive freelance career dedicated to honest visual storytelling and meticulous post-production.
+      </p>
+    </div>
+
+    <div id="career-timeline-container" class="space-y-2"></div>
+  </section>
+
+  <!-- 14. CLIENT TESTIMONIALS -->
+  <section id="testimonials" class="py-28 px-6 lg:px-12 max-w-5xl mx-auto border-t border-zinc-900">
+    <div class="text-center mb-12">
+      <div class="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-amber-400 font-mono mb-2">
+        <span>// 09 — CLIENT VOICES</span>
+      </div>
+      <h2 class="font-display text-3xl sm:text-5xl font-bold text-white tracking-tight">
+        Words of Trust
+      </h2>
+      <p class="text-xs font-mono text-zinc-500 mt-2">
+        [Placeholder Reviews — Replace with genuine client feedback in data/portfolioData.js]
+      </p>
+    </div>
+
+    <div class="relative p-8 md:p-14 rounded-3xl bg-zinc-900/60 border border-zinc-800/80 shadow-2xl">
+      <div class="text-6xl font-display text-amber-400/20 absolute top-6 left-8 select-none">“</div>
+
+      <div class="relative z-10 text-center max-w-3xl mx-auto">
+        <p id="testimonial-quote" class="text-lg sm:text-2xl md:text-3xl font-display font-light text-zinc-100 italic leading-relaxed"></p>
+
+        <div class="mt-8 flex flex-col items-center">
+          <div class="flex items-center gap-1 text-amber-400 mb-2">★★★★★</div>
+          <h3 id="testimonial-name" class="text-base font-display font-bold text-white"></h3>
+          <p id="testimonial-project" class="text-xs font-mono text-amber-300 mt-0.5"></p>
+          <span id="testimonial-location" class="text-[11px] font-mono text-zinc-500 mt-1"></span>
+        </div>
+      </div>
+
+      <div class="mt-8 pt-6 border-t border-zinc-800/80 flex items-center justify-between">
+        <span id="testimonial-counter" class="text-xs font-mono text-zinc-500">01 / 03</span>
+
+        <div class="flex items-center gap-3">
+          <button 
+            id="testimonial-prev-btn" 
+            class="p-2.5 rounded-full bg-zinc-800 text-zinc-300 hover:text-white hover:bg-amber-400 hover:text-black transition-colors"
+            title="Previous Testimonial">
+            ←
+          </button>
+          <button 
+            id="testimonial-next-btn" 
+            class="p-2.5 rounded-full bg-zinc-800 text-zinc-300 hover:text-white hover:bg-amber-400 hover:text-black transition-colors"
+            title="Next Testimonial">
+            →
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15. CONTACT — CONVERSION EXPERIENCE -->
+  <section id="contact" class="py-28 px-6 lg:px-12 max-w-7xl mx-auto border-t border-zinc-900">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+      
+      <!-- Left Column: Details & Direct Channels -->
+      <div class="lg:col-span-5 flex flex-col justify-between">
+        <div>
+          <div class="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-amber-400 font-mono mb-2">
+            <span>// 10 — INQUIRE &amp; COLLABORATE</span>
+          </div>
+          <h2 class="font-display text-4xl sm:text-5xl font-bold text-white tracking-tight leading-tight">
+            Let's Create Something Worth Remembering.
+          </h2>
+          <p class="text-sm text-zinc-400 mt-3 leading-relaxed font-light">
+            Have a project, event, or creative idea? Let's bring your vision to life. Share your dates, vision, and deliverables below.
+          </p>
+
+          <div class="mt-8 space-y-4">
+            <!-- Direct Email -->
+            <div class="flex items-center gap-4 p-4 rounded-2xl bg-zinc-900/60 border border-zinc-800">
+              <div class="w-10 h-10 rounded-full bg-amber-400/10 border border-amber-400/30 flex items-center justify-center text-amber-300 font-mono">
+                ✉
+              </div>
+              <div>
+                <span class="text-[10px] uppercase font-mono text-zinc-500 block">Direct Email</span>
+                <a id="contact-info-email" href="mailto:akashjais1187@gmail.com" class="text-sm text-zinc-200 hover:text-amber-300 font-mono transition-colors">
+                  akashjais1187@gmail.com
+                </a>
+              </div>
+            </div>
+
+            <!-- Direct Phone -->
+            <div class="flex items-center gap-4 p-4 rounded-2xl bg-zinc-900/60 border border-zinc-800">
+              <div class="w-10 h-10 rounded-full bg-amber-400/10 border border-amber-400/30 flex items-center justify-center text-amber-300 font-mono">
+                ☎
+              </div>
+              <div>
+                <span class="text-[10px] uppercase font-mono text-zinc-500 block">Phone / Direct Line</span>
+                <a id="contact-info-phone" href="tel:+919696915516" class="text-sm text-zinc-200 hover:text-amber-300 font-mono transition-colors">
+                  +91 96969 15516
+                </a>
+              </div>
+            </div>
+
+            <!-- Location -->
+            <div class="flex items-center gap-4 p-4 rounded-2xl bg-zinc-900/60 border border-zinc-800">
+              <div class="w-10 h-10 rounded-full bg-amber-400/10 border border-amber-400/30 flex items-center justify-center text-amber-300 font-mono">
+                📍
+              </div>
+              <div>
+                <span class="text-[10px] uppercase font-mono text-zinc-500 block">Location Base</span>
+                <span id="contact-info-location" class="text-sm text-zinc-200 font-mono">
+                  Available for Commissions Worldwide · Based in India [Editable City]
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- WhatsApp Button -->
+        <div class="mt-8 pt-6 border-t border-zinc-800">
+          <a 
+            id="whatsapp-direct-btn" 
+            href="https://wa.me/919696915516?text=Hi%20Aakash!%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20discuss%20a%20project." 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="w-full py-4 px-6 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs uppercase tracking-wider font-bold transition-all shadow-xl shadow-emerald-950/40 flex items-center justify-center gap-2">
+            <span>💬 Direct Message on WhatsApp (+91 96969 15516)</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive Brief Form -->
+      <div class="lg:col-span-7">
+        <div class="p-8 sm:p-10 rounded-3xl bg-zinc-900/80 border border-zinc-800/90 shadow-2xl">
+          <h3 class="text-2xl font-display font-bold text-white mb-2">Project Brief Submission</h3>
+          <p class="text-xs text-zinc-400 mb-6 font-light">Fill out your project requirements below. Aakash reviews all submissions directly.</p>
+
+          <form id="portfolio-contact-form" class="space-y-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label class="block text-[11px] uppercase font-mono text-zinc-400 mb-1.5">Full Name *</label>
+                <input 
+                  type="text" 
+                  name="name" 
+                  required
+                  placeholder="e.g. Siddharth Mehta" 
+                  class="w-full px-4 py-3.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-400 transition-colors"
+                />
+              </div>
+
+              <div>
+                <label class="block text-[11px] uppercase font-mono text-zinc-400 mb-1.5">Email Address *</label>
+                <input 
+                  type="email" 
+                  name="email" 
+                  required
+                  placeholder="name@company.com" 
+                  class="w-full px-4 py-3.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-400 transition-colors"
+                />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div>
+                <label class="block text-[11px] uppercase font-mono text-zinc-400 mb-1.5">Phone / WhatsApp Number</label>
+                <input 
+                  type="tel" 
+                  name="phone" 
+                  placeholder="+91 98765 00000" 
+                  class="w-full px-4 py-3.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-400 transition-colors"
+                />
+              </div>
+
+              <div>
+                <label class="block text-[11px] uppercase font-mono text-zinc-400 mb-1.5">Project Category *</label>
+                <select 
+                  id="contact-service-select"
+                  name="service" 
+                  class="w-full px-4 py-3.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-zinc-100 focus:outline-none focus:border-amber-400 transition-colors">
+                  <option value="Wedding Stories & Films">01 — Wedding Stories &amp; Films</option>
+                  <option value="Portraits & Character Studies">02 — Portraits &amp; Character Studies</option>
+                  <option value="Events & Concert Highlights">03 — Events &amp; Concert Highlights</option>
+                  <option value="Product Photography & Commercial">04 — Product Photography &amp; Commercial</option>
+                  <option value="Travel & Destination Photography">05 — Travel &amp; Destination Diaries</option>
+                  <option value="Cinematic Video Editing (Premiere Pro)">Adobe Premiere Pro Video Editing</option>
+                  <option value="Instagram Reels & Viral Shorts">Instagram Reels &amp; Viral Shorts</option>
+                  <option value="Photoshop Retouching & Lightroom Grading">Photoshop Retouching &amp; Lightroom Grading</option>
+                  <option value="Comprehensive Freelance Package">Comprehensive Freelance Package</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[11px] uppercase font-mono text-zinc-400 mb-1.5">Event / Project Date</label>
+              <input 
+                type="text" 
+                name="date" 
+                placeholder="e.g. November 2026 / Next Month / Flexible" 
+                class="w-full px-4 py-3.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-400 transition-colors"
+              />
+            </div>
+
+            <div>
+              <label class="block text-[11px] uppercase font-mono text-zinc-400 mb-1.5">Project Description &amp; Vision *</label>
+              <textarea 
+                id="contact-message"
+                name="message" 
+                rows="4" 
+                required
+                placeholder="Describe your project, shooting locations, required deliverables, and any aesthetic references..." 
+                class="w-full px-4 py-3.5 rounded-xl bg-zinc-950 border border-zinc-800 text-sm text-zinc-100 placeholder-zinc-600 focus:outline-none focus:border-amber-400 transition-colors"
+              ></textarea>
+            </div>
+
+            <div id="contact-form-feedback"></div>
+
+            <button 
+              type="submit" 
+              class="w-full py-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-black text-xs uppercase tracking-widest font-bold transition-all shadow-xl shadow-amber-400/20 flex items-center justify-center gap-2">
+              LET'S CREATE SOMETHING →
+            </button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 17. PREMIUM OVERSIZED FOOTER -->
+  <footer class="py-16 pb-24 sm:pb-16 px-6 lg:px-12 border-t border-zinc-900 bg-[#050507] text-zinc-500">
+    <div class="max-w-7xl mx-auto flex flex-col justify-between gap-12">
+      
+      <!-- Top Oversized Wordmark Banner -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-zinc-900 pb-12 gap-6">
+        <div>
+          <h2 class="font-display text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight">
+            AAKASH JAISWAL
+          </h2>
+          <p class="font-display text-base sm:text-xl text-amber-200/80 italic mt-2 font-light">
+            "Creating timeless visual stories."
+          </p>
+        </div>
+
+        <button 
+          id="back-to-top-btn"
+          class="self-start md:self-auto px-5 py-2.5 rounded-full border border-zinc-800 text-xs font-mono text-zinc-400 hover:text-white hover:border-amber-400/50 transition-colors flex items-center gap-2">
+          <span>Back to Top</span>
+          <span>↑</span>
+        </button>
+      </div>
+
+      <!-- Footer Links & Info -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 text-xs font-mono">
+        <div>
+          <span class="text-zinc-400 uppercase tracking-widest block mb-3 font-bold">Navigation</span>
+          <ul class="space-y-2 text-zinc-500">
+            <li><a href="#hero" class="hover:text-amber-300 transition-colors">Home</a></li>
+            <li><a href="#about" class="hover:text-amber-300 transition-colors">About Aakash</a></li>
+            <li><a href="#portfolio" class="hover:text-amber-300 transition-colors">Selected Frames</a></li>
+            <li><a href="#stories" class="hover:text-amber-300 transition-colors">Signature Stories</a></li>
+            <li><a href="#videography" class="hover:text-amber-300 transition-colors">Films &amp; Showreel</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <span class="text-zinc-400 uppercase tracking-widest block mb-3 font-bold">Specializations</span>
+          <ul class="space-y-2 text-zinc-500">
+            <li>Wedding Photography &amp; Films</li>
+            <li>Portraits &amp; Character Studies</li>
+            <li>Events &amp; Concert Recaps</li>
+            <li>Product Photography</li>
+            <li>Travel &amp; Destination Diaries</li>
+          </ul>
+        </div>
+
+        <div>
+          <span class="text-zinc-400 uppercase tracking-widest block mb-3 font-bold">Direct Channels</span>
+          <ul class="space-y-2 text-zinc-500">
+            <li><a href="mailto:akashjais1187@gmail.com" class="text-amber-300 hover:underline">akashjais1187@gmail.com</a></li>
+            <li><a href="tel:+919696915516" class="hover:text-white transition-colors">+91 96969 15516</a></li>
+            <li><a href="https://wa.me/919696915516" target="_blank" class="text-emerald-400 hover:underline">WhatsApp Direct</a></li>
+            <li><span class="text-zinc-600">[Instagram Placeholder]</span></li>
+          </ul>
+        </div>
+
+        <div>
+          <span class="text-zinc-400 uppercase tracking-widest block mb-3 font-bold">Production Tools</span>
+          <p class="text-zinc-500 leading-relaxed">
+            Adobe Photoshop<br />
+            Adobe Lightroom<br />
+            Adobe Premiere Pro<br />
+            <button class="open-config-guide-trigger text-amber-300 hover:underline mt-2 inline-block">Configuration Guide ↗</button>
+          </p>
+        </div>
+      </div>
+
+      <!-- Copyright -->
+      <div class="pt-8 border-t border-zinc-900 flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-zinc-600 gap-4">
+        <span>© 2026 Aakash Jaiswal. All rights reserved.</span>
+        <span>Designed for international cinematic visual standards.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CONFIGURATION & PHOTO REPLACEMENT MODAL -->
+  <div id="config-guide-modal" class="hidden fixed inset-0 z-50 lightbox-backdrop bg-black/90 flex items-center justify-center p-4 sm:p-6">
+    <div class="max-w-2xl w-full bg-zinc-900 border border-zinc-800 rounded-3xl p-6 sm:p-8 max-h-[85vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-4 border-b border-zinc-800 mb-6">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-amber-400"></span>
+          <h3 class="font-display text-xl font-bold text-white">Portfolio Customization Guide</h3>
+        </div>
+        <button id="close-config-guide-btn" class="p-2 text-zinc-400 hover:text-white" aria-label="Close Guide">
+          ✕
+        </button>
+      </div>
+
+      <div class="space-y-6 text-xs text-zinc-300 leading-relaxed font-sans">
+        <div class="p-4 rounded-xl bg-amber-400/10 border border-amber-400/30">
+          <p class="font-bold text-amber-300 mb-1">Centralized Data Architecture</p>
+          <p class="text-zinc-300">All data across this website is centrally managed in <code class="px-1.5 py-0.5 rounded bg-black font-mono text-amber-200">data/portfolioData.js</code> (and <code class="px-1.5 py-0.5 rounded bg-black font-mono text-amber-200">src/data/portfolioData.ts</code>).</p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-sm text-white mb-1">1. Replace Photographs with Your Actual Work</h4>
+          <p>Open <code class="px-1.5 py-0.5 rounded bg-zinc-800 font-mono text-amber-200">data/portfolioData.js</code> and update <code class="font-mono text-amber-300">PORTFOLIO_PHOTOS</code> with your image URLs or local files and their camera EXIF values.</p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-sm text-white mb-1">2. Manage Signature Story Case Studies</h4>
+          <p>Update <code class="font-mono text-amber-300">SIGNATURE_PROJECTS</code> to add multi-photo editorial case studies with creative approach write-ups.</p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-sm text-white mb-1">3. Video Showreels &amp; Reels</h4>
+          <p>Update <code class="font-mono text-amber-300">VIDEOGRAPHY_PROJECTS</code> to link your YouTube embeds, Vimeo videos, or MP4 clips.</p>
+        </div>
+      </div>
+
+      <div class="mt-8 pt-4 border-t border-zinc-800 flex justify-end">
+        <button 
+          onclick="document.getElementById('config-guide-modal').classList.add('hidden'); document.getElementById('config-guide-modal').classList.remove('flex');"
+          class="px-5 py-2 rounded-xl bg-amber-400 text-black text-xs font-bold hover:bg-amber-300 transition-colors">
+          Close Guide
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOBILE BOTTOM STICKY ACTION DOCK (For Smartphone Clients) -->
+  <aside aria-label="Mobile Navigation Dock" class="mobile-bottom-dock sm:hidden flex items-center justify-around py-2.5 px-3">
+    <a href="#portfolio" class="flex flex-col items-center gap-0.5 text-zinc-400 hover:text-amber-300 active:scale-95 transition-all p-1">
+      <span class="text-sm">📷</span>
+      <span class="text-[9px] font-mono uppercase tracking-wider font-semibold">Frames</span>
+    </a>
+    <a href="https://wa.me/919696915516?text=Hi%20Aakash!%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20discuss%20a%20project." target="_blank" rel="noopener noreferrer" class="flex flex-col items-center gap-0.5 text-emerald-400 hover:text-emerald-300 active:scale-95 transition-all p-1">
+      <span class="text-sm">💬</span>
+      <span class="text-[9px] font-mono uppercase tracking-wider font-semibold">WhatsApp</span>
+    </a>
+    <a href="tel:+919696915516" class="flex flex-col items-center gap-0.5 text-zinc-400 hover:text-amber-300 active:scale-95 transition-all p-1">
+      <span class="text-sm">📞</span>
+      <span class="text-[9px] font-mono uppercase tracking-wider font-semibold">Call</span>
+    </a>
+    <a href="#contact" class="flex items-center gap-1.5 px-4 py-2 rounded-full bg-amber-400 text-black text-[10px] font-bold uppercase tracking-wider shadow-lg shadow-amber-400/20 active:scale-95 transition-all">
+      <span>Book Shoot</span>
+      <span>→</span>
+    </a>
+  </aside>
+
+  <!-- Main JavaScript Controller -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

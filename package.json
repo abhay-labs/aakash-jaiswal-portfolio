@@ -1,0 +1,29 @@
+{
+  "name": "aakash-jaiswal-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "World-Class Cinematic Photography & Videography Portfolio for Aakash Jaiswal",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "build": "echo 'Production static build ready in root'",
+    "preview": "node server.js"
+  },
+  "keywords": [
+    "photography",
+    "videography",
+    "cinematography",
+    "portfolio",
+    "aakash-jaiswal",
+    "video-editor"
+  ],
+  "author": "Aakash Jaiswal",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "lucide-react": "^0.460.0",
+    "typescript": "^5.6.3"
+  }
+}
