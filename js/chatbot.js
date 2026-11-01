@@ -75,7 +75,7 @@ export class AIChatbot {
         <div class="flex-shrink-0 px-5 py-4 border-b border-zinc-800/80 bg-zinc-950/80 flex items-center justify-between">
           <div class="flex items-center gap-3">
             <div class="relative w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-500 to-amber-300 p-0.5 shadow-md overflow-hidden">
-              <img src="/images/portrait/aakash-jaiswal-editorial-portrait.jpg" alt="Aakash Jaiswal" class="w-full h-full object-cover object-top rounded-[14px]" />
+              <img src="images/portrait/aakash-jaiswal-editorial-portrait.jpg" alt="Aakash Jaiswal" class="w-full h-full object-cover object-top rounded-[14px]" />
               <span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-400 border-2 border-black"></span>
             </div>
             <div>
